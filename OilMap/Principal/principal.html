@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OILMAP - Exploração Geoespacial de Petróleo</title>
+    <meta name="description" content="Plataforma integrada para visualização de dados geoespaciais na indústria de petróleo">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="principal.css"/>
+</head>
+<body>
+
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        function initVLibras() {
+            if (typeof window.VLibras !== 'undefined') {
+                new window.VLibras.Widget('https://vlibras.gov.br/app');
+            } else {
+                setTimeout(initVLibras, 100);
+            }
+        }
+        initVLibras();
+    </script>
+
+  <div class="home-page" id="home-page">
+    <div class="header">
+        <div class="logo" onclick="scrollToHome()">OILMAP</div>
+        <nav class="nav" id="nav1">
+          <a href="javascript:void(0);" onclick="scrollToHome()">HOME</a>
+          <a href="javascript:void(0);" onclick="scrollToAbout()">SOBRE</a>
+          <a href="javascript:void(0);" onclick="scrollToMap()">MAPA</a>
+      
+          <div class="accessibility-menu" aria-label="Menu de acessibilidade" role="navigation">
+            <button id="colorblind-toggle"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    aria-controls="colorblind-options">
+              Menu - Daltonismo
+            </button>
+            <div id="colorblind-options"
+                 class="accessibility-options"
+                 role="menu"
+                 aria-hidden="true">
+              <button role="menuitem" onclick="applyColorFilter('protanopia')">Protanopia</button>
+              <button role="menuitem" onclick="applyColorFilter('deuteranopia')">Tritanopia</button>
+              <button role="menuitem" onclick="applyColorFilter('tritanopia')">Deuteranopia</button>
+              <hr>
+              <button role="menuitem" onclick="resetColorFilter()">Padrão</button>
+            </div>
+          </div>
+        </nav>
+      
+        <div class="hamburger" id="hamburger1" onclick="toggleMenu('nav1')">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+
+        <main class="main-content">
+            <h1 class="title">OILMAP</h1>
+            <p class="subtitle">
+                "Explorar petróleo começa com entender o território — visualizar dados geoespaciais de forma integrada é essencial para decisões assertivas."
+            </p>
+
+        </main>
+    </div>
+
+    <div class="about-page" id="about-page">
+        <div class="background-container">
+            <img src="image3.png" alt="Background exploração de petróleo" class="background-image" id="bgImage">
+            <div class="background-overlay"></div>
+            <div class="pattern-overlay"></div>
+        </div>
+
+        <div class="vertical-line"></div>
+
+        <main class="about-content">
+            <div class="content-wrapper">
+                <div class="text-content">
+                    <h2 class="main-title">SOBRE O<br>PROJETO</h2>
+
+                    <p class="description">
+                        O projeto visa oferecer uma solução inovadora para a busca e visualização de dados geoespaciais na 
+                        indústria de petróleo, facilitando os estudos exploratórios para identificação de acumulações de 
+                        hidrocarbonetos. A plataforma foi desenvolvida para atender às necessidades dos profissionais da 
+                        área geocientífica, oferecendo uma interface integrada e de fácil navegação.
+                    </p>
+
+                    <p class="description">
+                        Com a ferramenta, é possível realizar consultas detalhadas e explorar dados dos poços exploratórios 
+                        de forma precisa, seja por campos, operadores, bacias ou outras variáveis relevantes. A 
+                        funcionalidade de drill-down permite uma análise aprofundada de cada aspecto da área de estudo, 
+                        enquanto a atualização dinâmica garante que as informações estejam sempre alinhadas com os 
+                        filtros e critérios definidos pelo usuário.
+                    </p>
+
+                    <p class="description">
+                        O objetivo do projeto é proporcionar uma solução prática e eficiente, que otimize o processo de 
+                        exploração e ajude na tomada de decisões estratégicas, tornando as operações mais rápidas, 
+                        integradas e assertivas.
+                    </p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <title>OilMap - Bacias e Campos de Petróleo do Brasil</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    
+    
+</head>
+<body>
+    <header>
+        <div class="logo">OilMap</div>
+    </header>
+
+    <div class="main-container">
+        <div class="controls-panel">
+            <h2 class="panel-title">Seleção de Mapa</h2>
+            
+            <div class="select-group">
+                <label for="mapas">📍 Escolha um local:</label>
+                <select id="mapas" onchange="trocarMapa(this.value)">
+                    <option value="bacia de campos">Bacia de Campos</option>
+                    <option value="bacia de santos">Bacia de Santos</option>
+                    <option value="campo de marlim">Campo de Marlim</option>
+                    <option value="campo de albacora">Campo de Albacora</option>
+                    <option value="campo de roncador">Campo de Roncador</option>
+                    <option value="campo de barracuda">Campo de Barracuda</option>
+                    <option value="campo de búzios">Campo de Búzios</option>
+                    <option value="campo de tupi/lula">Campo de Tupi/Lula</option>
+                    <option value="campo de sapinhoá">Campo de Sapinhoá</option>
+                    <option value="campo de mero">Campo de Mero</option>
+                    <option value="campo de itapu">Campo de Itapu</option>
+                    <option value="campo de fazenda alegre">Campo de Fazenda Alegre</option>
+                    <option value="campo de são joão">Campo de São João</option>
+                    <option value="terminal cabiúnas">Terminal Cabiúnas</option>
+                </select>
+            </div>
+
+            <div class="info-section" id="infoSection">
+                <div class="info-item">
+                    <strong>📍 Localização</strong>
+                    <p id="infoLocalizacao"></p>
+                </div>
+                
+                <div class="info-item">
+                    <strong>📏 Área</strong>
+                    <p id="infoArea"></p>
+                </div>
+                
+                <div class="info-item">
+                    <strong>ℹ️ Sobre</strong>
+                    <p id="infoSobre"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="map-container">
+            <div id="map"></div>
+            <div class="loading-overlay" id="loadingOverlay">
+                <div class="spinner"></div>
+                <div class="loading-text">Carregando mapa...</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/python-visualization/folium@main/folium/templates/leaflet_heat.min.js"></script>
+
+    <script src="/Principal/principal.js"></script>
+</body>
+</html>
+</body>
+</html>
