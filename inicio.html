@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OILMAP</title>
+    <link rel="stylesheet" href="inicio.css">
+</head>
+<body>
+
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+          <div class="vw-plugin-top-wrapper"></div>
+        </div>
+      </div>
+      <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+      <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+      </script>
+
+    <section class="page active home-page">
+        <header class="header">
+            <div class="logo" onclick="scrollToTop()">OILMAP</div>
+            <nav class="nav">
+                <a href="#inicio">HOME</a>
+                <a href="#noticias">NOTÍCIAS</a>
+                <a href="#contato">CONTATO</a>
+            </nav>
+            <a href="/Login/login.html" class="header-cta">COMECE AGORA</a>
+        </header>
+
+        <main class="main-content" id="inicio">
+            <h1 class="title">OILMAP</h1>
+            <p class="subtitle">
+                "Explorar petróleo começa com entender o território — visualizar dados geoespaciais de forma integrada é essencial para decisões assertivas."
+            </p>
+            <a href="/Login/login.html" class="main-cta">COMECE AGORA</a>
+        </main>
+    </section>
+
+    <section id="noticias" class="news-section">
+        <header class="news-header">
+            <div class="logo">OILMAP</div>
+            <nav id="nav">
+                <a href="#inicio">INÍCIO</a>
+                <a href="#noticias">NOTÍCIAS</a>
+                <a href="#contato">CONTATO</a>
+            </nav>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </header>
+
+        <div class="hero-section">
+            <div class="hero-title">
+                <h1>Últimas<br>notícias</h1>
+            </div>
+            <div class="hero-subtitle">
+                Fique por dentro das últimas notícias do mundo petrolífero
+            </div>
+
+            <div class="carousel-container">
+                <div class="carousel-wrapper" id="carouselWrapper">
+                    <div class="news-grid">
+                        <div class="news-card">
+                            <img src="/Inicio/noticia1.png" alt="Petróleo" class="news-image">
+                            <div class="news-content">
+                                <h3 class="news-title">BRASIL BATE PELA 1ª VEZ MARCA DE 5 MILHÕES DE BARRIS DE PETRÓLEO E GÁS</h3>
+                                <a href="https://agenciabrasil.ebc.com.br/economia/noticia/2025-09/brasil-bate-pela-1a-vez-marca-de-5-milhoes-de-barris-de-petroleo-e-gas" class="read-more"><div class="read-more-icon">→</div>Saiba mais</a>
+                            </div>
+                        </div>
+                        <div class="news-card">
+                            <img src="/Inicio/noticia2.png" alt="Plataforma" class="news-image">
+                            <div class="news-content">
+                                <h3 class="news-title">MAGNATAS DO PETRÓLEO APOSTAM ALTO EM TRUMP, E ESTÃO TENDO RESULTADO</h3>
+                                <a href="https://investnews.com.br/the-wall-street-journal/magnatas-petroleo-trump/" class="read-more"><div class="read-more-icon">→</div>Saiba mais</a>
+                            </div>
+                        </div>
+                        <div class="news-card">
+                            <img src="/Inicio/noticia3.png" alt="Trabalhador" class="news-image">
+                            <div class="news-content">
+                                <h3 class="news-title">BRASIL SE DESTACA COMO LÍDER NA EXPANSÃO DO SETOR PETROLÍFERO NA AMÉRICA</h3>
+                                <a href="https://www.portaltela.com/noticias/economia/2025/08/30/brasil-se-destaca-como-lider-na-expansao-do-setor-petrolifero-da-america-do-sul" class="read-more"><div class="read-more-icon">→</div>Saiba mais</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="carousel-controls">
+                <button class="carousel-button" id="prevBtn"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+                <button class="carousel-button" id="nextBtn"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        const hamburger = document.getElementById('hamburger');
+        const nav = document.getElementById('nav');
+        hamburger?.addEventListener('click', () => nav.classList.toggle('active'));
+
+        
+        const carouselWrapper = document.getElementById('carouselWrapper');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const progressFill = document.getElementById('progressFill');
+        let currentSlide = 0;
+        const totalSlides = 2;
+
+        function updateCarousel() {
+            carouselWrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
+            progressFill.style.width = `${((currentSlide + 1) / totalSlides) * 100}%`;
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === totalSlides - 1;
+        }
+
+        prevBtn?.addEventListener('click', () => { if (currentSlide > 0) { currentSlide--; updateCarousel(); } });
+        nextBtn?.addEventListener('click', () => { if (currentSlide < totalSlides - 1) { currentSlide++; updateCarousel(); } });
+
+        updateCarousel();
+    </script>
+</body>
+</html>

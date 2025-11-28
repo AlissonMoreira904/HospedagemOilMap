@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/Login/login.css">
+</head>
+<body>
+
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+          <div class="vw-plugin-top-wrapper"></div>
+        </div>
+      </div>
+      <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+      <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+      </script> 
+
+    <div class="page" id="login-page">
+        <div class="container login-page">
+            <div class="left-side">
+                <div class="logo-login" onclick="showHomePage()">OILMAP</div>
+            </div>
+
+            <div class="right-side">
+                <div class="login-box">
+                    <h2>OLÁ!<br>BEM VINDO!</h2>
+                    <form onsubmit="handleLogin(event)">
+                        <input id="login-email" type="email" placeholder="Email" required>
+                        <div id="login-email-error" class="error-text"></div>
+                        <input id="login-password" type="password" placeholder="Senha" required>
+                        <div id="login-password-error" class="error-text"></div>
+                        <span class="forgot">Esqueceu sua senha?</span>
+                        <button type="submit">LOGIN</button>
+                    </form>
+                    <p class="register">NÃO POSSUI UMA CONTA?
+                        <a href="/Cadastro/cadastro.html">Crie Aqui</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showHomePage() {
+            document.getElementById('home-page').classList.add('active');
+            document.getElementById('login-page').classList.remove('active');
+        }
+
+        function showLoginPage() {
+            document.getElementById('home-page').classList.remove('active');
+            document.getElementById('login-page').classList.add('active');
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const form = event.target;
+            const emailInput = form.querySelector('#login-email');
+            const passwordInput = form.querySelector('#login-password');
+            const emailError = form.querySelector('#login-email-error');
+            const passwordError = form.querySelector('#login-password-error');
+
+            emailError.textContent = '';
+            passwordError.textContent = '';
+            emailInput.classList.remove('error');
+            passwordInput.classList.remove('error');
+
+            const email = emailInput.value.trim();
+            const password = passwordInput.value;
+
+            let valido = true;
+            if (!email) {
+                emailError.textContent = 'Informe seu email.';
+                emailInput.classList.add('error');
+                valido = false;
+            } else if (!/\S+@\S+\.[\S]+/.test(email)) {
+                emailError.textContent = 'Email inválido.';
+                emailInput.classList.add('error');
+                valido = false;
+            }
+
+            if (!password) {
+                passwordError.textContent = 'Informe sua senha.';
+                passwordInput.classList.add('error');
+                valido = false;
+            }
+
+            if (!valido) return;
+            window.location.href = '/Principal/principal.html';
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.style.transition = 'opacity 0.5s ease-in-out';
+            });
+        });
+    </script>
+</body>
+</html>

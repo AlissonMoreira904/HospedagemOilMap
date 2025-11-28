@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="/Cadastro/cadastro.css">
+</head>
+<body>
+
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+          <div class="vw-plugin-top-wrapper"></div>
+        </div>
+      </div>
+      <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+      <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+      </script>
+
+    <div class="cadastro-page">
+        <div class="left-side">
+            <div class="logo-cadastro">OILMAP</div>
+        </div>
+
+        <div class="right-side">
+            <div class="container">
+                <div class="header">
+                    <h2 class="title">Cadastro</h2>
+                    <p class="subtitle">
+                        Já tem uma conta?
+                        <a href="/Login/login.html" class="login-link">Faça login</a>
+                    </p>
+                </div>
+
+                <div class="form-container">
+                    <form class="form" id="registro-form">
+                        <div class="form-group">
+                            <label for="nome" class="form-label">Nome completo</label>
+                            <input
+                                id="nome"
+                                name="nome"
+                                type="text"
+                                autocomplete="name"
+                                required
+                                class="form-input"
+                            />
+                            <p class="error-message" id="nome-error">Nome é obrigatório</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email</label>
+                            <input
+                                id="email"
+                                name="email"
+                                type="email"
+                                autocomplete="email"
+                                required
+                                class="form-input"
+                            />
+                            <p class="error-message" id="email-error">Email inválido</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="telefone" class="form-label">Telefone</label>
+                            <input
+                                id="telefone"
+                                name="telefone"
+                                type="tel"
+                                autocomplete="tel"
+                                required
+                                class="form-input"
+                            />
+                            <p class="error-message" id="telefone-error">Telefone inválido</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dataNascimento" class="form-label">Data de Nascimento</label>
+                            <input
+                                id="dataNascimento"
+                                name="dataNascimento"
+                                type="date"
+                                required
+                                class="form-input"
+                            />
+                            <p class="error-message" id="dataNascimento-error">Data de nascimento é obrigatória</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="senha" class="form-label">Senha</label>
+                            <input
+                                id="senha"
+                                name="senha"
+                                type="password"
+                                autocomplete="new-password"
+                                required
+                                class="form-input"
+                            />
+                            <p class="error-message" id="senha-error">A senha deve ter pelo menos 6 caracteres</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirmarSenha" class="form-label">Confirmar Senha</label>
+                            <input
+                                id="confirmarSenha"
+                                name="confirmarSenha"
+                                type="password"
+                                autocomplete="new-password"
+                                required
+                                class="form-input"
+                            />
+                            <p class="error-message" id="confirmarSenha-error">As senhas não conferem</p>
+                        </div>
+
+                        <div class="checkbox-container">
+                            <input
+                                id="termos"
+                                name="termos"
+                                type="checkbox"
+                                required
+                                class="checkbox"
+                            />
+                            <label for="termos" class="checkbox-label">
+                                Concordo com os
+                                <a href="#" class="terms-link">Termos de Serviço</a>
+                                e
+                                <a href="#" class="terms-link">Política de Privacidade</a>
+                            </label>
+                        </div>
+
+                        <button
+                            type="submit"
+                            class="submit-button"
+                        >
+                            Registrar
+                        </button>
+                    </form>
+
+                    <div id="success-message" class="success-message">
+                        <p>Registro realizado com sucesso!</p>
+                        <p>Por favor, verifique seu email para confirmar sua conta.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function validarFormulario() {
+            let valido = true;
+            const nome = document.getElementById('nome');
+            const email = document.getElementById('email');
+            const telefone = document.getElementById('telefone');
+            const dataNascimento = document.getElementById('dataNascimento');
+            const senha = document.getElementById('senha');
+            const confirmarSenha = document.getElementById('confirmarSenha');
+            
+            if (!nome.value.trim()) {
+                mostrarErro(nome, 'nome-error', 'Nome é obrigatório');
+                valido = false;
+            } else {
+                ocultarErro(nome, 'nome-error');
+            }
+            
+            if (!email.value.trim()) {
+                mostrarErro(email, 'email-error', 'Email é obrigatório');
+                valido = false;
+            } else if (!/\S+@\S+\.\S+/.test(email.value)) {
+                mostrarErro(email, 'email-error', 'Email inválido');
+                valido = false;
+            } else {
+                ocultarErro(email, 'email-error');
+            }
+            
+            if (!telefone.value.trim()) {
+                mostrarErro(telefone, 'telefone-error', 'Telefone é obrigatório');
+                valido = false;
+            } else {
+                ocultarErro(telefone, 'telefone-error');
+            }
+            
+            if (!dataNascimento.value) {
+                mostrarErro(dataNascimento, 'dataNascimento-error', 'Data de nascimento é obrigatória');
+                valido = false;
+            } else {
+                ocultarErro(dataNascimento, 'dataNascimento-error');
+            }
+            
+            if (!senha.value) {
+                mostrarErro(senha, 'senha-error', 'Senha é obrigatória');
+                valido = false;
+            } else if (senha.value.length < 6) {
+                mostrarErro(senha, 'senha-error', 'A senha deve ter pelo menos 6 caracteres');
+                valido = false;
+            } else {
+                ocultarErro(senha, 'senha-error');
+            }
+            
+            if (senha.value !== confirmarSenha.value) {
+                mostrarErro(confirmarSenha, 'confirmarSenha-error', 'As senhas não conferem');
+                valido = false;
+            } else {
+                ocultarErro(confirmarSenha, 'confirmarSenha-error');
+            }
+            
+            return valido;
+        }
+        
+        function mostrarErro(input, errorId, mensagem) {
+            input.classList.add('error');
+            const errorElement = document.getElementById(errorId);
+            errorElement.textContent = mensagem;
+            errorElement.classList.add('visible');
+        }
+        
+        function ocultarErro(input, errorId) {
+            input.classList.remove('error');
+            const errorElement = document.getElementById(errorId);
+            errorElement.classList.remove('visible');
+        }
+        
+        document.getElementById('registro-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (validarFormulario()) {
+                document.getElementById('registro-form').style.display = 'none';
+                document.getElementById('success-message').classList.add('visible');
+            }
+        });
+    </script>
+</body>
+</html>
